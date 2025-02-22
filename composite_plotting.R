@@ -3,9 +3,6 @@ require(ggpubr) # geom_bracket
 require(extrafont)
 require(glue)
 require(ggrepel) # text repel
-require(tictoc)
-require(furrr)
-require(parallel)
 
 source('00_functions.R')
 source('00_plot_functions.R')
@@ -18,7 +15,7 @@ data_main = read.csv("SoIB_main.csv")
 groups = data_main %>%
   #filter(Order %in% c("Anseriformes","Charadriiformes")) %>% please edit this line
   # to select only the families/orders/species of interest
-  mutate(GROUP = case_when(IUCN.Category == "" ~ NA_character_, 
+  mutate(GROUP = case_when(IUCN.Category == "" ~ NA_character_, #CHANGE HERE
                            TRUE ~ IUCN.Category)) %>% 
   filter(!is.na(GROUP)) %>%
   dplyr::select(eBird.English.Name.2022,GROUP,
