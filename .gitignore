@@ -44,14 +44,6 @@ occupancy-presence/
 
 
 # image outputs
-*.gif
-*.jpeg
-*.jpg
-*.tiff
-*.tif
-*.png
-*.svg
-*.pdf
 02_graphs/statewise_pas/
 02_graphs/statewise_prioritygrids/
 
