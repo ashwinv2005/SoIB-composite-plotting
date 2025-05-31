@@ -13,9 +13,11 @@ data_main = read.csv("SoIB_main.csv")
 # This is where we mention the column of interest
 
 groups = data_main %>%
-  #filter(Order %in% c("Anseriformes","Charadriiformes")) %>% please edit this line
+  filter(Order %in% c("Anseriformes","Charadriiformes")) %>% #please edit this line
+  filter(Migratory.Status.Within.India %in% c("Winter Migrant")) %>% #please edit this line
   # to select only the families/orders/species of interest
-  mutate(GROUP = case_when(IUCN.Category == "" ~ NA_character_, #CHANGE HERE
+  mutate(GROUP = case_when(IUCN.Category == "" ~ NA_character_,
+                           #WPA.Schedule == "Not protected" ~ NA_character_,#CHANGE HERE
                            TRUE ~ IUCN.Category)) %>% 
   filter(!is.na(GROUP)) %>%
   dplyr::select(eBird.English.Name.2022,GROUP,
