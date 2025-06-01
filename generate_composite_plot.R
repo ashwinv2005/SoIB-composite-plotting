@@ -78,9 +78,15 @@ generate_composite_plot <- function(trendType = "LTT", filters = list(), groupBy
   palette_plot_elem <- "#56697B"
   palette_plot_elem <- "black"
   palette_plot_title <- "#A13E2B"
-  palette_trend_groups <- c("#869B27", "#E49B36", "#436b74", "#CC6666", 
-                            "#B69AC9", "#319cc0","#31954E","#493F3D",
-                            "#EA5599", "#9999CC", "#A13E2B", "#66CC99")
+  palette_trend_groups <- c(
+    "#869B27", "#E49B36", "#436b74", "#CC6666", "#B69AC9", "#319cc0", 
+    "#31954E", "#493F3D", "#EA5599", "#9999CC", "#A13E2B", "#66CC99",
+    # Additional 20 colors
+    "#B0C965", "#F6C85F", "#4A8FA1", "#D7816A", "#D0A5D3", "#7BC6CC", 
+    "#5AB379", "#8C7A6B", "#F48FB1", "#C5CAE9", "#B5523B", "#80DEB6",
+    "#CEDB89", "#FFB74D", "#7395AE", "#E57373", "#BA68C8", "#4DB6AC", 
+    "#81C784", "#A1887F"
+  )
   
   plot_fontfamily = "Gandhi Sans"
   
@@ -154,18 +160,15 @@ generate_composite_plot <- function(trendType = "LTT", filters = list(), groupBy
     filter(!is.na(mean_std)) %>% # no CI band
     pull(mean_std) %>%
     max()
-  
-  print (plot_ymax0)
+
   plot_ymin0 <- cur_data_trends %>%
     filter(!is.na(mean_std)) %>% # no CI band
     pull(mean_std) %>%
     min()
-  print (plot_ymin0)
-  
+
   plot_ymax <- plot_ymax0 %>% plyr::round_any(accuracy = 50, f = ceiling)
   plot_ymin <- plot_ymin0 %>% plyr::round_any(accuracy = 50, f = floor)
-  print (plot_ymax)
-  print (plot_ymin)
+
   
   # ensuring range is not too small
   if ((plot_ymax - plot_ymin) < 100 & plot_ymin < 0) {
@@ -174,9 +177,6 @@ generate_composite_plot <- function(trendType = "LTT", filters = list(), groupBy
   if ((plot_ymax - plot_ymin) < 100 & plot_ymax > 0) {
     plot_ymax <- plot_ymax + 50
   }
-  
-  print (plot_ymax)
-  print (plot_ymin)
   
   # determining y-axis breaks for current plot ----------------------------------------
   
@@ -225,9 +225,7 @@ generate_composite_plot <- function(trendType = "LTT", filters = list(), groupBy
     plot_ybreaks = plyr::round_any(plot_ybreaks, 10, round)
     
   }
-  print (plot_ymax)
-  print (plot_ymin)
-  
+
   plot_range_max = plot_ymax - plot_ymin
   
   # to standardize the y-range
@@ -371,10 +369,6 @@ generate_composite_plot <- function(trendType = "LTT", filters = list(), groupBy
   
   # joining plot base with other constant aesthetic features of graph
   
-  print(plot_ymax0)
-  print(plot_ymin0)
-  print(plot_range_max)
-  
   cur_plot <- plot_base +
     # timegroup brackets
     geom_axisbracket("time") + 
@@ -417,4 +411,4 @@ filters <- list(
 groupByField <- "IUCN.Category"
 trendType <- "LTT"
 
-generate_composite_plot (trendType, filters=list(), groupByField)
+#generate_composite_plot (trendType, filters=list(), groupByField)
